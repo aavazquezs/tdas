@@ -49,15 +49,25 @@ public class ListaSE<T> implements Lista<T> {
 
     @Override
     public void adicionar(T x) throws Exception {
+        
         if(this.cabeza == null){ // esta vacia
+        
             this.cabeza = new NodoSE<>(x);
+        
         }else{ // contiene elementos
+        
             NodoSE<T> nodo = new NodoSE<>(x); //un nodo con la info que deseo adicionar
+            
             NodoSE<T> cursor = this.cabeza;   //un cursor para moverme por la lista enlazada
+            
             while(cursor.getSiguiente()!=null){ //mientras no encontremos al ultimo nodo
+            
                 cursor = cursor.getSiguiente(); //movemos el cursor al siguiente nodo
+            
             }
+            
             cursor.setSiguiente(nodo);  //adicionamos el nodo con la info al final de la lista enlazada
+        
         }
         
         this.longitud++; //incrementamos la longitud en 1
@@ -115,4 +125,67 @@ public class ListaSE<T> implements Lista<T> {
         this.longitud--;
     }
 
+    public void limpiar(){
+        this.cabeza = null;
+        this.longitud = 0;
+    }
+    
+    @Override
+    public String toString(){
+        String out = "[";
+        NodoSE<T> cursor = this.cabeza;
+        if(cursor!=null){
+            out += cursor.getDato().toString();
+            cursor = cursor.getSiguiente();
+        }
+        while(cursor!=null){
+            out += "," + cursor.getDato().toString();
+            cursor = cursor.getSiguiente();
+        }
+        out += "]";
+        return out;
+    }
+    
+    public void removeAll(T elemento){
+        if(this.cabeza == null){
+            
+            return;
+        }
+        
+        if(this.cabeza.getDato().equals(elemento)){
+            
+            this.cabeza = this.cabeza.getSiguiente();
+            
+            this.longitud--;
+            
+        }
+        
+        NodoSE<T> cursor = this.cabeza;
+        
+        while(cursor!=null && cursor.getSiguiente()!=null){
+        
+            if(cursor.getSiguiente().getDato().equals(elemento)){
+            
+                NodoSE<T> sgte = cursor.getSiguiente().getSiguiente();
+                
+                Integer cont = 1;
+                
+                while(sgte != null && sgte.getDato().equals(elemento)){
+                
+                    sgte = sgte.getSiguiente();
+                    
+                    cont++;
+                
+                }
+                
+                cursor.setSiguiente(sgte);
+                
+                this.longitud -= cont;
+            }
+            
+            cursor = cursor.getSiguiente();
+            
+        }
+    }
+    
 }

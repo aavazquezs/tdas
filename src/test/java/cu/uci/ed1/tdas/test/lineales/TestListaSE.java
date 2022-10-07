@@ -76,4 +76,27 @@ public class TestListaSE {
          assertEquals(10, lista.obtener(3));//ahora el elemento en la posicion 3 es 10.
          
      }
+     
+     @Test public void toStringTest() throws Exception{
+         ListaSE<Integer> lista = new ListaSE<>();
+         lista.adicionar(1);
+         lista.adicionar(2);
+         lista.adicionar(3);
+         lista.adicionar(4);
+         lista.adicionar(5);
+         assertEquals("[1,2,3,4,5]", lista.toString());
+     }
+     
+     @Test public void removeAllTest() throws Exception{
+         ListaSE<Integer> lista = new ListaSE<>();
+         lista.adicionar(1);
+         lista.adicionar(2);
+         lista.adicionar(1);
+         lista.adicionar(4);
+         lista.adicionar(1);
+         assertEquals("[1,2,1,4,1]", lista.toString());
+         lista.adicionar(1);
+         lista.removeAll(1);
+         assertEquals("[2,4]", lista.toString());
+     }
 }
