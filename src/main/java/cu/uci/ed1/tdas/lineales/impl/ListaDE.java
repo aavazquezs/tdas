@@ -9,11 +9,13 @@ import cu.uci.ed1.tdas.lineales.Lista;
 public class ListaDE<T> implements Lista<T> {
 
     protected NodoDE<T> cabeza;
+    protected NodoDE<T> ultimo;
     protected Integer longitud;
 
     public ListaDE() {
         this.longitud = 0;
         this.cabeza = null;
+        this.ultimo = null;
     }
     
     @Override
@@ -33,13 +35,11 @@ public class ListaDE<T> implements Lista<T> {
         
         if(this.cabeza == null){
             this.cabeza = nodo;
+            this.ultimo = nodo;
         }else{
-            NodoDE<T> cursor = this.cabeza;
-            while(cursor.getSiguiente() != null){
-                cursor = cursor.getSiguiente();
-            }
-            nodo.setAnterior(cursor);
-            cursor.setSiguiente(nodo);
+            this.ultimo.setSiguiente(nodo);
+            nodo.setAnterior(this.ultimo);
+            this.ultimo = nodo;
         }
         
         this.longitud++;
@@ -69,7 +69,7 @@ public class ListaDE<T> implements Lista<T> {
 
     @Override
     public void eliminar(Integer pos) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
 }
