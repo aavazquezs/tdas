@@ -4,7 +4,7 @@ package cu.uci.ed1.tdas.lineales;
  *
  * @author angel
  */
-public interface Lista<T> {
+public interface Lista<T> extends Iterable<T>{
     /**
      * Devuelve la longitud de la lista
      * @return 

@@ -1,6 +1,9 @@
 package cu.uci.ed1.tdas.lineales.impl;
 
 import cu.uci.ed1.tdas.lineales.Lista;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -187,5 +190,51 @@ public class ListaSE<T> implements Lista<T> {
             
         }
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new IteradorListaSE<>(this);
+    }
+    
+    public class IteradorListaSE<T> implements Iterator<T>{
+
+        private NodoSE<T> cursor;
+        private Integer posicion;
+        private boolean eliminar;
+        
+        public IteradorListaSE(ListaSE<T> lista) {
+            cursor = lista.cabeza;
+            posicion = 0;
+            eliminar = false;
+        }
+        
+        @Override
+        public boolean hasNext() {
+            return cursor != null;
+        }
+
+        @Override
+        public T next() {
+            posicion++;
+            T dato = cursor.getDato();
+            cursor = cursor.getSiguiente();
+            eliminar = true;
+            return dato;
+        }
+
+        @Override
+        public void remove() {
+            if(eliminar){
+                try {
+                    eliminar(--posicion);
+                } catch (Exception ex) {
+                    System.out.println("ERROR: IteradorListaSE: bad index for removal");
+                }
+                eliminar = false;
+            }
+        }
+    
+    }
+    
     
 }

@@ -3,6 +3,7 @@ package cu.uci.ed1.tdas.lineales.impl;
 import cu.uci.ed1.tdas.lineales.Lista;
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  *
@@ -78,6 +79,11 @@ public class ListaArregloEst<T extends Object> implements Lista<T> {
         }
         this.elementos[this.longitud-1] = null;
         this.longitud--;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

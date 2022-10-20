@@ -1,6 +1,7 @@
 package cu.uci.ed1.tdas.lineales.impl;
 
 import cu.uci.ed1.tdas.lineales.Lista;
+import java.util.Iterator;
 
 /**
  *
@@ -25,7 +26,16 @@ public class ListaDE<T> implements Lista<T> {
 
     @Override
     public T obtener(Integer pos) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(pos<0 || pos>=this.longitud){
+            throw new Exception("ERROR: ListaDE.obtener() bad index");
+        }
+        NodoDE<T> cursor = this.cabeza;
+        Integer posicionActual = 0;
+        while(posicionActual < pos){
+            cursor = cursor.getSiguiente();
+            posicionActual++;
+        }
+        return cursor.getDato();
     }
 
     @Override
@@ -60,16 +70,68 @@ public class ListaDE<T> implements Lista<T> {
         }else{
             Integer currentPosition = 0;
             NodoDE<T> cursor = this.cabeza;
-            while(currentPosition < this.longitud - 1 && cursor.getSiguiente()!=null){
+            while(currentPosition < pos && cursor.getSiguiente()!=null){
                 cursor = cursor.getSiguiente();
                 currentPosition++;
             }
+            NodoDE<T> anterior = cursor.getAnterior();
+            anterior.setSiguiente(nodo);
+            nodo.setAnterior(anterior);
+            nodo.setSiguiente(cursor);
+            cursor.setAnterior(nodo);
+            
         }
+        this.longitud++;
     }
 
     @Override
     public void eliminar(Integer pos) throws Exception {
+        if(pos<0 || pos>=this.longitud){
+            throw new Exception("ERROR: ListaDE.eliminar() bad index");
+        }
+        NodoDE<T> cursor = this.cabeza;
+        Integer posicionActual = 0;
+        while(posicionActual < pos){
+            cursor = cursor.getSiguiente();
+            posicionActual++;
+        }
         
+        if(cursor.equals(this.cabeza)){
+            NodoDE<T> sgte = cursor.getSiguiente();
+            sgte.setAnterior(null);
+            this.cabeza = sgte;
+        }else if(cursor.equals(this.ultimo)){
+            NodoDE<T> anterior = cursor.getAnterior();
+            anterior.setSiguiente(null);
+            this.ultimo = anterior;
+        }else{
+            NodoDE<T> anterior = cursor.getAnterior();
+            NodoDE<T> sgte = cursor.getSiguiente();
+            anterior.setSiguiente(sgte);
+            sgte.setAnterior(anterior);
+        }
+        this.longitud--;
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String toString() {
+        String cadena = "[";
+        NodoDE<T> cursor = this.cabeza;
+        if(cursor!=null){
+            cadena += cursor.getDato().toString();
+            cursor = cursor.getSiguiente();
+        }
+        while(cursor!=null){
+            cadena += ","+cursor.getDato().toString();
+            cursor = cursor.getSiguiente();
+        }
+        cadena += "]";
+        return cadena;
+    }
+    
 }
