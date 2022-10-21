@@ -236,5 +236,38 @@ public class ListaSE<T> implements Lista<T> {
     
     }
     
-    
+    public class IteradorRango<T> implements Iterator<T>{
+
+        private Integer min;
+        private Integer max;
+        
+        private NodoSE<T> cursor;
+        private Integer posicion;
+        private boolean eliminar;
+
+        public IteradorRango(ListaSE<T> lista) {
+            cursor = lista.cabeza;
+            eliminar = false;
+            posicion = 0;
+        }
+        
+        
+        
+        @Override
+        public boolean hasNext() {
+            return cursor != null;
+        }
+
+        @Override
+        public T next() {
+            //TODO hacer luego
+            return null;
+        }
+
+        @Override
+        public void remove() {
+            Iterator.super.remove(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        }
+        
+    }
 }

@@ -2,6 +2,8 @@ package cu.uci.ed1.tdas.lineales.impl;
 
 import cu.uci.ed1.tdas.lineales.Lista;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -115,7 +117,7 @@ public class ListaDE<T> implements Lista<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new IteradorReverso<>(this);
     }
 
     @Override
@@ -132,6 +134,48 @@ public class ListaDE<T> implements Lista<T> {
         }
         cadena += "]";
         return cadena;
+    }
+    
+    public class IteradorReverso<T> implements Iterator<T>{
+
+        private NodoDE<T> cursor;
+        private Integer posicion;
+        private boolean eliminar;
+        private NodoDE<T> cabeza;
+        
+
+        public IteradorReverso(ListaDE<T> lista) {
+            cursor = lista.ultimo;
+            posicion = lista.longitud - 1;
+            eliminar = false;
+        }
+        
+        @Override
+        public boolean hasNext() {
+            return cursor != null;
+        }
+
+        @Override
+        public T next() {
+            posicion--;
+            T dato = cursor.getDato();
+            cursor = cursor.getAnterior();
+            eliminar = true;
+            return dato;
+        }
+
+        @Override
+        public void remove() {
+            if(eliminar){
+                try {
+                    eliminar(posicion+1);
+                } catch (Exception ex) {
+                    System.out.println("ERROR: IteradorReverso: bad index for removal");
+                }
+                eliminar = false;
+            }
+        }
+    
     }
     
 }

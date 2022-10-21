@@ -122,7 +122,8 @@ public class ListaCircularSE<T> extends ListaSE<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new IteradorListaCircularSE<>(this); 
+        //return new IteradorListaCircularSE<>(this); 
+        return new IteradorImpar<>(this);
     }
     
     public class IteradorListaCircularSE<T> implements Iterator<T>{
@@ -163,21 +164,6 @@ public class ListaCircularSE<T> extends ListaSE<T> {
                     System.out.println("ERROR: IteradorListaCircularSE.remove() bad index");
                 }
                 eliminar = false;
-            }
-        }
-        
-        public T nextImpar(){
-            if(hasNext()){
-                if(posicion % 2 == 0){
-                    cursor = cursor.getSiguiente();
-                    posicion++;
-                }
-                T dato = cursor.getDato();
-                cursor = cursor.getSiguiente();
-                posicion++;
-                return dato;
-            } else{
-                return null;
             }
         }
     }
