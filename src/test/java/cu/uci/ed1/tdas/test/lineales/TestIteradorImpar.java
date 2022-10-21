@@ -1,9 +1,11 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ */
 package cu.uci.ed1.tdas.test.lineales;
 
 import cu.uci.ed1.tdas.lineales.Lista;
 import cu.uci.ed1.tdas.lineales.impl.ListaCircularSE;
-import cu.uci.ed1.tdas.lineales.impl.ListaSE;
-import cu.uci.ed1.tdas.lineales.impl.ListaCircularSE.IteradorListaCircularSE;
 import java.util.Iterator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author lisset
  */
-public class TestIteradorListaCircularSE {
+public class TestIteradorImpar {
     
-    public TestIteradorListaCircularSE() {
+    public TestIteradorImpar() {
     }
     
     @Test public void iterar() throws Exception{
@@ -42,19 +44,7 @@ public class TestIteradorListaCircularSE {
         }
         cadena += "]";
         
-        Assertions.assertEquals("[1,1,2,3,5,8,13,21]",cadena);
-        
-        Iterator<Integer> it2 = lista.iterator();
-        //eliminar los valores pares
-        
-        while(it2.hasNext()){
-            Integer valor = it2.next();
-            if(valor%2 == 0){
-                it2.remove();
-            }
-        }
-        
-        Assertions.assertEquals("[1,1,3,5,13,21]",lista.toString());
+        Assertions.assertEquals("[1,3,8,21]",cadena);
         
     }
     
