@@ -60,9 +60,23 @@ public class ArbolGeneralImpl<T> implements ArbolGeneral<T> {
     }
 
     @Override
-    public void copaEn(ArbolGeneral<T> nuevoArbol) {
+    public void copiaEn(ArbolGeneral<T> nuevoArbol) {
         ((ArbolGeneralImpl)nuevoArbol).raiz = this.raiz;
-        ((ArbolGeneralImpl)nuevoArbol).hijos = this.hijos;
+        
+        Lista<ArbolGeneralImpl<T>> copiaHijos = new ListaSE<>();
+        
+        for (ArbolGeneralImpl<T> hijo : hijos) {
+            ArbolGeneralImpl<T> copia = new ArbolGeneralImpl<>(hijo.raiz);
+            hijo.copiaEn(copia);
+            try {
+                copiaHijos.adicionar(copia);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        
+        ((ArbolGeneralImpl)nuevoArbol).hijos = copiaHijos;
+        
     }
 
     @Override

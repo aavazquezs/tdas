@@ -13,7 +13,7 @@ public interface ArbolGeneral<T> {
     Integer grado();
     Integer altura();
     ArbolGeneral<T> subArbol(Integer posicion);
-    void copaEn(ArbolGeneral<T> nuevoArbol);
+    void copiaEn(ArbolGeneral<T> nuevoArbol);
     void adicionarSubArbol(ArbolGeneral<T> subArbol);
     ArbolGeneral<T> podarSubArbol(Integer posicion);
     Lista<T> preOrden();
