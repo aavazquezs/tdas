@@ -71,4 +71,11 @@ public class TestArbolGeneral {
         String cadena = aLoAncho.toString();
         assertEquals("[1,3,4,5,6,7,8,9,10]", cadena);
     }
+    
+    @Test void copiaEnTest(){
+        ArbolGeneralImpl<Integer> nuevoArbol = new ArbolGeneralImpl<>(0);
+        arbol.copiaEn(nuevoArbol);
+        Lista<Integer> aLoAnchoCopia = nuevoArbol.aLoAncho();
+        assertEquals("[1,3,4,5,6,7,8,9,10]",aLoAnchoCopia.toString());
+    }
 }
